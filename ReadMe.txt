@@ -1,3 +1,7 @@
 Dùng Eclipse, IntelliJ để build
 
-Du lieu icon, taikhoan, matkhau trong jar/data
+Taikhoan, matkhau trong jar/data/account.txt
+
+Khoi dong Server: jar/Server.jar
+
+User: jar/Client.jar
