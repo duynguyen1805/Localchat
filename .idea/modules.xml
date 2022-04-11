@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Mango-chat-app.iml" filepath="$PROJECT_DIR$/Mango-chat-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Local-chat-app.iml" filepath="$PROJECT_DIR$/Local-chat-app.iml" />
     </modules>
   </component>
 </project>

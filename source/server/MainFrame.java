@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JButton start = new JButton("Start server");
+		JButton start = new JButton("Khởi động Server");
 		start.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		
 		JPanel panel = new JPanel();
@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(90)
+					.addGap(75)
 					.addComponent(start, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
 					.addGap(81))
 		);
@@ -65,7 +65,7 @@ public class MainFrame extends JFrame {
 					.addContainerGap())
 		);
 		
-		JLabel text = new JLabel("Click here to start server");
+		JLabel text = new JLabel(" ");
 		text.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel.add(text);
 		contentPane.setLayout(gl_contentPane);
@@ -84,7 +84,7 @@ public class MainFrame extends JFrame {
 				t.start();
 
 				start.setEnabled(false);
-				text.setText("Start server successful");
+				text.setText("Server đang hoạt động");
 			}
 		});
 	}

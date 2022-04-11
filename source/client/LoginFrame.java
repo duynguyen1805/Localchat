@@ -22,10 +22,7 @@ public class LoginFrame extends JFrame {
 	private DataOutputStream dos;
 	
 	private String username;
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,10 +35,7 @@ public class LoginFrame extends JFrame {
 			}
 		});
 	}
-	
-	/**
-	 * Create the frame.
-	 */
+
 	public LoginFrame() {
 		setTitle("LOCAL CHAT");
 		
@@ -56,10 +50,10 @@ public class LoginFrame extends JFrame {
 		JPanel headerPanel = new JPanel();
 		headerPanel.setBackground(new Color(160,190,223));
 		
-		JLabel lbUsername = new JLabel("Username");
+		JLabel lbUsername = new JLabel("Tài khoản");
 		lbUsername.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		JLabel lbPassword = new JLabel("Password");
+		JLabel lbPassword = new JLabel("Mật khẩu");
 		lbPassword.setFont(new Font("Arial", Font.BOLD, 14));
 		
 		txtUsername = new JTextField();
@@ -115,15 +109,15 @@ public class LoginFrame extends JFrame {
 		notification.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		notificationContainer.add(notification);
 		
-		JButton login = new JButton("Log in");
-		JButton signup = new JButton("Sign up");
+		JButton login = new JButton("Đăng nhập");
+		JButton signup = new JButton("   Đăng kí   ");
 		
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String response = Login(txtUsername.getText(), String.copyValueOf(txtPassword.getPassword()));
 				
 				// đăng nhập thành công thì server sẽ trả về  chuỗi "Log in successful"
-				if ( response.equals("Log in successful") ) {
+				if ( response.equals("Đăng nhập thành công") ) {
 					username = txtUsername.getText();
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
@@ -138,7 +132,7 @@ public class LoginFrame extends JFrame {
 					dispose();
 				} else {
 					login.setEnabled(false);
-					signup.setEnabled(false);
+					signup.setEnabled(true);
 					txtPassword.setText("");
 					notification.setText(response);
 				}
@@ -156,7 +150,7 @@ public class LoginFrame extends JFrame {
 		});
 		signup.setEnabled(true);
 		buttons.add(signup);
-		JLabel headerContent = new JLabel("LOGIN");
+		JLabel headerContent = new JLabel("Đăng nhập");
 		headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
 		headerPanel.add(headerContent);
 		contentPane.setLayout(gl_contentPane);
@@ -166,8 +160,10 @@ public class LoginFrame extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				if (txtUsername.getText().isBlank() || String.copyValueOf(txtPassword.getPassword()).isBlank()) {
 					login.setEnabled(false);
+					signup.setEnabled(true);
 				} else {
 					login.setEnabled(true);
+					signup.setEnabled(true);
 				}
 			}
 		});
@@ -177,8 +173,10 @@ public class LoginFrame extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				if (txtUsername.getText().isBlank() || String.copyValueOf(txtPassword.getPassword()).isBlank()) {
 					login.setEnabled(false);
+					signup.setEnabled(true);
 				} else {
 					login.setEnabled(true);
+					signup.setEnabled(true);
 				}
 			}
 		});
@@ -190,7 +188,7 @@ public class LoginFrame extends JFrame {
 		try {
 			Connect();
 			
-			dos.writeUTF("Log in");
+			dos.writeUTF("Login");
 			dos.writeUTF(username);
 			dos.writeUTF(password);
 			dos.flush();
@@ -200,7 +198,7 @@ public class LoginFrame extends JFrame {
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "Network error: Log in fail";
+			return "Lỗi mạng: Đăng nhập không thành công";
 		}
 	}
 

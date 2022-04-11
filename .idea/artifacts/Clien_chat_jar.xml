@@ -2,7 +2,7 @@
   <artifact type="jar" name="Clien-chat:jar">
     <output-path>$PROJECT_DIR$/classes/artifacts/Clien_chat_jar</output-path>
     <root id="archive" name="Mango-chat-app.jar">
-      <element id="module-output" name="Mango-chat-app" />
+      <element id="module-output" name="Localchat" />
       <element id="extracted-dir" path="$PROJECT_DIR$/jar/chat-server.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/jar/chat-application.jar" path-in-jar="/" />
     </root>

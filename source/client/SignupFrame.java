@@ -18,7 +18,7 @@ public class SignupFrame extends JFrame {
     private JPanel contentPane;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
-    private JPasswordField txtComfirmPassword, confirm;
+    private JPasswordField txtComfirmPassword;
     private String username;
 
     private String host = "localhost";
@@ -46,7 +46,7 @@ public class SignupFrame extends JFrame {
         setTitle("LOCAL CHAT");
 
         setDefaultLookAndFeelDecorated(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(230, 240, 247));
@@ -56,13 +56,13 @@ public class SignupFrame extends JFrame {
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(160,190,223));
 
-        JLabel lbUsername = new JLabel("Username");
+        JLabel lbUsername = new JLabel("Tài khoản");
         lbUsername.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JLabel lbPassword = new JLabel("Password");
+        JLabel lbPassword = new JLabel("Mật khẩu");
         lbPassword.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JLabel lbComfirmPassword = new JLabel("Comfirm Password");
+        JLabel lbComfirmPassword = new JLabel("Nhập lại mật khẩu");
         lbComfirmPassword.setFont(new Font("Arial", Font.BOLD, 14));
 
         txtUsername = new JTextField();
@@ -132,8 +132,16 @@ public class SignupFrame extends JFrame {
         notification.setFont(new Font("Times New Roman", Font.PLAIN, 13));
         notificationContainer.add(notification);
 
-        //JButton login = new JButton("Log in");
-        JButton signup = new JButton("Sign up");
+        JButton login = new JButton("Đăng nhập");
+        JButton signup = new JButton("   Đăng kí   ");
+
+        login.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                dispose();
+            }
+        });
+        login.setEnabled(true);
+        buttons.add(login);
 
         signup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -141,13 +149,13 @@ public class SignupFrame extends JFrame {
                 if (String.copyValueOf(txtComfirmPassword.getPassword()).equals(String.copyValueOf(txtPassword.getPassword()))){
                     String response = Signup(txtUsername.getText(), String.copyValueOf(txtPassword.getPassword()));
 
-                    if ( response.equals("Sign up successful") ) {
+                    if ( response.equals("Đăng kí thành công") ) {
                         username = txtUsername.getText();
                         EventQueue.invokeLater(new Runnable() {
                             public void run() {
                                 try {
-                                    // In ra thông báo đăng kí thành công
-                                    int confirm = JOptionPane.showConfirmDialog(null, "Sign up successful\nWelcome to MANGO CHAT", "Sign up successful", JOptionPane.DEFAULT_OPTION);
+                                    // Hien thi thong bao dang ki thanh cong
+                                    JOptionPane.showConfirmDialog(null, "Đăng kí thành công\nWelcome to LOCAL CHAT", "Đăng kí thành công", JOptionPane.DEFAULT_OPTION);
 
                                     ChatFrame frame = new ChatFrame(username, dis, dos);
                                     frame.setVisible(true);
@@ -165,14 +173,14 @@ public class SignupFrame extends JFrame {
                     }
 
                 } else {
-                    notification.setText("Confirm password does not match");
+                    notification.setText("Nhập lại mật khẩu không trùng khớp");
                 }
             }
         });
         signup.setEnabled(false);
         buttons.add(signup);
 
-        JLabel headerContent = new JLabel("SIGNUP");
+        JLabel headerContent = new JLabel("Tạo tài khoản mới");
         headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
         headerPanel.add(headerContent);
         contentPane.setLayout(gl_contentPane);
@@ -218,7 +226,7 @@ public class SignupFrame extends JFrame {
         try {
             Connect();
 
-            dos.writeUTF("Sign up");
+            dos.writeUTF("Signup");
             dos.writeUTF(username);
             dos.writeUTF(password);
             dos.flush();
@@ -228,7 +236,7 @@ public class SignupFrame extends JFrame {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return "Network error: Sign up fail";
+            return "Lỗi mạng: Đăng kí không thành công.";
         }
     }
 

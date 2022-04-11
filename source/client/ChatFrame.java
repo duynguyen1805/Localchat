@@ -34,10 +34,7 @@ public class ChatFrame extends JFrame {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	/**
-	 * Insert a emoji into chat pane.
-	 */
+
 	private void newEmoji(String username, String emoji, Boolean yourMessage) {
 		
 		StyledDocument doc;
@@ -80,10 +77,7 @@ public class ChatFrame extends JFrame {
 	    
 	    autoScroll();
 	}
-	
-	/**
-	 * Insert a file into chat pane.
-	 */
+
 	private void newFile(String username, String filename, byte[] file, Boolean yourMessage) {
 
 		StyledDocument doc;
@@ -178,10 +172,7 @@ public class ChatFrame extends JFrame {
 		
 		autoScroll();
 	}
-	
-	/**
-	 * Insert a new message into chat pane.
-	 */
+
 	private void newMessage(String username, String message, Boolean yourMessage) {
 
 		StyledDocument doc;

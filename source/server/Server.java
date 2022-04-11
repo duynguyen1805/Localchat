@@ -9,11 +9,8 @@ public class Server {
 	private ServerSocket s;
 	private Socket socket;
 	static ArrayList<Handler> clients = new ArrayList<Handler>();
-	private String dataFile = "data\\accounts.txt";
-	
-	/**
-	 * Load ds account tu file
-	 */
+	private String dataFile = "C:\\Users\\duyng\\Desktop\\Localchat\\jar\\data\\accounts.txt"; //"data\\accounts.txt";
+
 	private void loadAccounts() {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(dataFile), "utf8"));
@@ -30,10 +27,7 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Save accounts
-	 */
+
 	private void saveAccounts() {
 		PrintWriter pw = null;
 		try {
@@ -70,7 +64,7 @@ public class Server {
 				// Doc yeu cau login/signup
 				String request = dis.readUTF();
 				
-				if (request.equals("Sign up")) {
+				if (request.equals("Signup")) {
 					// yeu cau signup tu user
 					
 					String username = dis.readUTF();
@@ -85,7 +79,7 @@ public class Server {
 						
 						//luu ds tk xuong file va gui noti login thanh cong
 						this.saveAccounts();
-						dos.writeUTF("Sign up successful");
+						dos.writeUTF("Đăng nhập thành công");
 						dos.flush();
 
 						//Tao mot Thread de giao tiep voi user nay
@@ -97,10 +91,10 @@ public class Server {
 					} else {
 						
 						// Thong bao dang nhap that bai
-						dos.writeUTF("This username is being used");
+						dos.writeUTF("Tên người dùng đã được sử dụng");
 						dos.flush();
 					}
-				} else if (request.equals("Log in")) {
+				} else if (request.equals("Login")) {
 					// yeu cau login tu user
 					
 					String username = dis.readUTF();
@@ -119,7 +113,7 @@ public class Server {
 									newHandler.setIsLoggedIn(true);
 									
 									// Thong bao login thanh cong
-									dos.writeUTF("Log in successful");
+									dos.writeUTF("Đăng nhập thành công");
 									dos.flush();
 									
 									// Tao mot Thread de giao tiep voi user nay
@@ -129,7 +123,7 @@ public class Server {
 									// Gui noti cho cac client dang online cap nhap danh nguoi dung truc tuyen
 									updateOnlineUsers();
 								} else {
-									dos.writeUTF("Password is not correct");
+									dos.writeUTF("Mật khẩu không đúng");
 									dos.flush();
 								}
 								break;
@@ -137,7 +131,7 @@ public class Server {
 						}
 						
 					} else {
-						dos.writeUTF("This username is not exist");
+						dos.writeUTF("Tên người dùng không tồn tại");
 						dos.flush();
 					}
 				}
@@ -178,7 +172,7 @@ public class Server {
 		for (Handler client:clients) {
 			if (client.getIsLoggedIn() == true) {
 				try {
-					client.getDos().writeUTF("Online users");
+					client.getDos().writeUTF("Online");
 					client.getDos().writeUTF(message);
 					client.getDos().flush();
 				} catch (IOException e) {
@@ -277,10 +271,10 @@ class Handler implements Runnable{
 				message = dis.readUTF();
 				
 				// yeu cau dang xuat tu user
-				if (message.equals("Log out")) {
+				if (message.equals("Đăng xuất")) {
 					
 					// thong bao user co the dang xuat
-					dos.writeUTF("Safe to leave");
+					dos.writeUTF("Có thể đăng xuất");
 					dos.flush();
 					
 					// Dong socket, chuyen thanh trang thai offline
