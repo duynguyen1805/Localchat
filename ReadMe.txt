@@ -4,4 +4,4 @@ Taikhoan, matkhau trong jar/data/account.txt
 
 Khoi dong Server: jar/Server.jar
 
-User: jar/Client.jar
+User: jar/Login.jar
