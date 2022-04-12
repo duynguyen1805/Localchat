@@ -18,7 +18,7 @@ public class SignupFrame extends JFrame {
     private JPanel contentPane;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
-    private JPasswordField txtComfirmPassword;
+    private JPasswordField txtComfirmPassword, confirm;
     private String username;
 
     private String host = "localhost";
@@ -45,7 +45,7 @@ public class SignupFrame extends JFrame {
     public SignupFrame() {
         setTitle("LOCAL CHAT");
 
-        setDefaultLookAndFeelDecorated(true);
+        setDefaultLookAndFeelDecorated(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -56,13 +56,16 @@ public class SignupFrame extends JFrame {
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(new Color(160,190,223));
 
-        JLabel lbUsername = new JLabel("Tài khoản");
+        JLabel lbUsername = new JLabel("Username");
+        lbUsername.setText("Tài khoản");
         lbUsername.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JLabel lbPassword = new JLabel("Mật khẩu");
+        JLabel lbPassword = new JLabel("Password");
+        lbPassword.setText("Mật khẩu");
         lbPassword.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JLabel lbComfirmPassword = new JLabel("Nhập lại mật khẩu");
+        JLabel lbComfirmPassword = new JLabel("Comfirm Password");
+        lbComfirmPassword.setText("Nhập lại mật khẩu");
         lbComfirmPassword.setFont(new Font("Arial", Font.BOLD, 14));
 
         txtUsername = new JTextField();
@@ -108,15 +111,15 @@ public class SignupFrame extends JFrame {
                 gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(gl_contentPane.createSequentialGroup()
                                 .addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                                .addGap(33)
+                                .addGap(28)
                                 .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(lbUsername)
                                         .addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addGap(30)
+                                .addGap(25)
                                 .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lbPassword))
-                                .addGap(30)
+                                .addGap(25)
                                 .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(txtComfirmPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lbComfirmPassword))
@@ -124,7 +127,7 @@ public class SignupFrame extends JFrame {
                                 .addComponent(notificationContainer, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttons, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-                                .addGap(22))
+                                .addGap(17))
         );
 
         JLabel notification = new JLabel("");
@@ -132,16 +135,19 @@ public class SignupFrame extends JFrame {
         notification.setFont(new Font("Times New Roman", Font.PLAIN, 13));
         notificationContainer.add(notification);
 
-        JButton login = new JButton("Đăng nhập");
-        JButton signup = new JButton("   Đăng kí   ");
+        JButton back = new JButton("back");
+        back.setText("Trở về");
+        JButton signup = new JButton("Sign up");
+        signup.setText("Đăng kí");
 
-        login.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        login.setEnabled(true);
-        buttons.add(login);
+        back.setEnabled(true);
+        buttons.add(back);
 
         signup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -149,13 +155,13 @@ public class SignupFrame extends JFrame {
                 if (String.copyValueOf(txtComfirmPassword.getPassword()).equals(String.copyValueOf(txtPassword.getPassword()))){
                     String response = Signup(txtUsername.getText(), String.copyValueOf(txtPassword.getPassword()));
 
-                    if ( response.equals("Đăng kí thành công") ) {
+                    if ( response.equals("Sign up successful") ) {
                         username = txtUsername.getText();
                         EventQueue.invokeLater(new Runnable() {
                             public void run() {
                                 try {
-                                    // Hien thi thong bao dang ki thanh cong
-                                    JOptionPane.showConfirmDialog(null, "Đăng kí thành công\nWelcome to LOCAL CHAT", "Đăng kí thành công", JOptionPane.DEFAULT_OPTION);
+                                    // In ra thông báo đăng kí thành công
+                                    int confirm = JOptionPane.showConfirmDialog(null, "Đăng kí thành công\nWelcome to LOCAL CHAT", "Thành công", JOptionPane.DEFAULT_OPTION);
 
                                     ChatFrame frame = new ChatFrame(username, dis, dos);
                                     frame.setVisible(true);
@@ -166,21 +172,22 @@ public class SignupFrame extends JFrame {
                         });
                         dispose();
                     } else {
-                        //login.setEnabled(false);
                         signup.setEnabled(false);
                         txtPassword.setText("");
+                        txtComfirmPassword.setText("");
                         notification.setText(response);
                     }
 
                 } else {
-                    notification.setText("Nhập lại mật khẩu không trùng khớp");
+                    notification.setText("Nhập lại mật khẩu không chính xác");
                 }
             }
         });
         signup.setEnabled(false);
         buttons.add(signup);
 
-        JLabel headerContent = new JLabel("Tạo tài khoản mới");
+        JLabel headerContent = new JLabel("SIGNUP");
+        headerContent.setText("TẠO TÀI KHOẢN");
         headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
         headerPanel.add(headerContent);
         contentPane.setLayout(gl_contentPane);
@@ -189,10 +196,8 @@ public class SignupFrame extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 if (txtUsername.getText().isBlank() || String.copyValueOf(txtPassword.getPassword()).isBlank() || String.copyValueOf(txtPassword.getPassword()).isBlank()) {
-                    //login.setEnabled(false);
                     signup.setEnabled(false);
                 } else {
-                    //login.setEnabled(true);
                     signup.setEnabled(true);
                 }
             }
@@ -226,7 +231,7 @@ public class SignupFrame extends JFrame {
         try {
             Connect();
 
-            dos.writeUTF("Signup");
+            dos.writeUTF("Sign up");
             dos.writeUTF(username);
             dos.writeUTF(password);
             dos.flush();
@@ -236,7 +241,7 @@ public class SignupFrame extends JFrame {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return "Lỗi mạng: Đăng kí không thành công.";
+            return "Lỗi mạng: Đăng kí không thành công";
         }
     }
 
