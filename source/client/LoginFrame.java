@@ -150,6 +150,7 @@ public class LoginFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				SignupFrame signupFrame = new SignupFrame();
+				signupFrame.setLocationRelativeTo(null);
 				signupFrame.setVisible(true);
 			}
 		});
