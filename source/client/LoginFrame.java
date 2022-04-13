@@ -28,6 +28,7 @@ public class LoginFrame extends JFrame {
 			public void run() {
 				try {
 					LoginFrame frame = new LoginFrame();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +39,7 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame() {
 		setTitle("LOCAL CHAT");
-
+		setLocationRelativeTo(null);
 		setDefaultLookAndFeelDecorated(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -127,6 +128,7 @@ public class LoginFrame extends JFrame {
 						public void run() {
 							try {
 								ChatFrame frame = new ChatFrame(username, dis, dos);
+								frame.setLocationRelativeTo(null);
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();

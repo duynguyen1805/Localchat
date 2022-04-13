@@ -33,6 +33,7 @@ public class SignupFrame extends JFrame {
             public void run() {
                 try {
                     SignupFrame frame = new SignupFrame();
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -164,6 +165,7 @@ public class SignupFrame extends JFrame {
                                     int confirm = JOptionPane.showConfirmDialog(null, "Đăng kí thành công\nWelcome to LOCAL CHAT", "Thành công", JOptionPane.DEFAULT_OPTION);
 
                                     ChatFrame frame = new ChatFrame(username, dis, dos);
+                                    frame.setLocationRelativeTo(null);
                                     frame.setVisible(true);
                                 } catch (Exception e) {
                                     e.printStackTrace();

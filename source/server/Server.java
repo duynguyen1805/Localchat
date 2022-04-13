@@ -9,7 +9,7 @@ public class Server {
 	private ServerSocket s;
 	private Socket socket;
 	static ArrayList<Handler> clients = new ArrayList<Handler>();
-	private String dataFile = "data\\accounts.txt";
+	private String dataFile =  "data\\accounts.txt";
 
 	private void loadAccounts() {
 		try {
